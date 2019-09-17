@@ -17,6 +17,8 @@ export const UPDATE_AUTHOR_LAST_NAME = 'UPDATE_AUTHOR_LAST_NAME'
 export const UPDATE_INGREDIENTS = 'UPDATE_INGREDIENTS'
 export const UPDATE_INSTRUCTIONS = 'UPDATE_INSTRUCTIONS'
 export const UPDATE_RECIPES = 'UPDATE_RECIPES'
+export const CLEAR_STATE = 'CLEAR_STATE'
+export const DELETE_RECIPE = 'DELETE_RECIPE'
 
 const reducer = (state = initialState, action) => {
     switch (action.type){
@@ -37,6 +39,13 @@ const reducer = (state = initialState, action) => {
             const recipe = {recipeName, recipeCategory, authorFirstName, authorLastName, ingredients, instructions}
             const newRecipes = [...state.recipes, recipe]
             return {...state, recipes: newRecipes}
+        case CLEAR_STATE:
+            // const {recipeName} = state
+            return {...state, recipeName: '', recipeCategory: '', authorFirstName: '', authorLastName: '', ingredients: [], instructions: []}
+        case DELETE_RECIPE:
+            const newRecipesList = [...state.recipes]
+            newRecipesList.splice(action.payload, 1)
+            return {...state, recipes: newRecipesList}
         default:
           return state
     }
